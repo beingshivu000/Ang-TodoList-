@@ -1,0 +1,75 @@
+<div class="parent">
+  <div class="container">
+
+    <!--  HEADER  -->
+    <header class="text-center text-light my-1">
+      <h1 class="mb-4 ">Todo List</h1>
+      <!-- <form class="search">
+            <input tyo
+            pe="text" class="form-control m-auto" name="search" placeholder="search todos">
+          </form> -->
+      <form [formGroup]="todoList" class="add text-center my-4" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- <span class="input-group-text">Add a new todo:</span>
+                <input type="text" class="form-control m-auto relative" name="add" id="add" #taskInput formControlName="newTOdo"> -->
+            <input type="text" class="form-control m-auto relative" name="add" id="add" #taskInput
+              formControlName="newTOdo" placeholder="Add a new todo...">
+          </div>
+          <div class="alert alert-danger" *ngIf="todoList.get('newTOdo')?.touched && todoList.get('newTOdo')?.invalid">
+            <div *ngIf="todoList.get('newTOdo')?.hasError('required') && todoList.get('newTOdo')?.touched "
+              class="text-danger">
+              Input is required
+            </div>
+            <div *ngIf="todoList.get('newTOdo')?.hasError('minlength') && todoList.get('newTOdo')?.touched "
+              class="text-danger">
+              Minimum length is 2 characters
+            </div>
+          </div>
+
+
+          <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary form-control" (click)="addTask(taskInput.value)">Add
+              Task</button>
+          </div>
+        </div>
+        <ul class="list-group todos mx-auto text-dark">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let task of tasks; let i = index ">
+            <!-- {{task}}
+                <input type="checkbox" class="form-check-input">
+                <button class="far fa-trash-alt delete" (click)="removeTask(i)"></button> -->
+                
+            <div class="d-flex align-items-center">
+              <input type="checkbox" class="form-check-input" style="margin-right: 0.75rem;"   [checked]="task.completed" (change)="toggleTaskCompletion(i)">
+              <span>{{ task.name}}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="text-success" *ngIf="task.completed">Completed!!</div>
+              <button class="far fa-trash-alt delete" style="margin-right: 0.75rem" (click)="removeTask(i)"></button>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </header>
+
+    <!--  LIST  -->
+
+    <!--           
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>listen to music</span>
+            <i class="far fa-trash-alt delete"></i>
+          </li>
+        </ul> -->
+
+    <!--  FORM  -->
+
+    <!-- <ul class="list-group todos mx-auto text-dark">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+      
+      </li>
+    </ul> -->
+  </div>
+
+</div>
